@@ -54,24 +54,24 @@ pipeline {
                 }
             }
         }
-       stage('Building Docker Image') {
+        stage('Building Docker Image') {
             steps {
                 script {
                     // Building Docker Image
                     echo 'Building Docker Image........'
-                    docker.build("mlops")
+                    dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
                 }
             }
-        } 
-         stage('Scanning Docker Image') {
+        }
+
+        stage('Scanning Docker Image') {
             steps {
                 script {
                     // Scanning Docker Image
                     echo 'Scanning Docker Image........'
-                    sh "trivy image mlops:latest -- format table -o trivy-image-scan-report.html"
+                    sh "trivy image ${DOCKERHUB_REPOSITORY}:latest --format table -o trivy-image-scan-report.html"
                 }
             }
         }
-        
     }
 }
