@@ -59,7 +59,7 @@ pipeline {
                 script {
                     // Building Docker Image
                     echo 'Building Docker Image........'
-                    dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
+                    dockerImage = docker.build("$ docker:latest")
                 }
             }
         }
@@ -69,7 +69,7 @@ pipeline {
                 script {
                     // Scanning Docker Image
                     echo 'Scanning Docker Image........'
-                    sh "trivy image ${DOCKERHUB_REPOSITORY}:latest --format table -o trivy-image-scan-report.html"
+                    sh "trivy image $docker :latest --format table -o trivy-image-scan-report.html"
                 }
             }
         }
