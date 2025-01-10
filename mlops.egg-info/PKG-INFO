@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: mlops
+Version: 0.1
+Summary: MLOPS PROJECT
+Author: shaili
+Requires-Python: >=3.7
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: setuptools
+Requires-Dist: mlops
+Requires-Dist: mysql-connector-python
+Requires-Dist: scikit-learn
+Requires-Dist: lightgbm
+Requires-Dist: xgboost
+Requires-Dist: tensorboard
+Requires-Dist: torch

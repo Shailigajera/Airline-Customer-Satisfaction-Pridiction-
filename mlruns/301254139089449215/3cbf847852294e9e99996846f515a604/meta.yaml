@@ -1,0 +1,15 @@
+artifact_uri: file:///F:/mlops_project1/mlruns/301254139089449215/3cbf847852294e9e99996846f515a604/artifacts
+end_time: 1736435671184
+entry_point_name: ''
+experiment_id: '301254139089449215'
+lifecycle_stage: active
+run_id: 3cbf847852294e9e99996846f515a604
+run_name: masked-mouse-889
+run_uuid: 3cbf847852294e9e99996846f515a604
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1736435620112
+status: 3
+tags: []
+user_id: shaili

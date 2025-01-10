@@ -6,7 +6,7 @@ setup(
     name ="mlops",
     version="0.1",
     author="shaili",
-    author_emails="abc@gmail.com",
+    author_emails="shailigajera2018@gmail.com",
     description="MLOPS PROJECT",
     packages=find_packages(),
     install_requires=requirements,

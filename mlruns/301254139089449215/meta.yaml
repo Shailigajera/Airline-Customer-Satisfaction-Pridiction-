@@ -1,0 +1,6 @@
+artifact_location: file:///F:/mlops_project1/mlruns/301254139089449215
+creation_time: 1736435147055
+experiment_id: '301254139089449215'
+last_update_time: 1736435147055
+lifecycle_stage: active
+name: Model_Training_Experiment
