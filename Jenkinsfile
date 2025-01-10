@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment{
         VENV_DIR ='venv'
+        DOCKERHUB_REPOSITORY = 'https://github.com/Shailigajera/Airline-Customer-Satisfaction-Pridiction-.git'
     }
     
     stages {
@@ -58,20 +59,22 @@ pipeline {
             steps {
                 script {
                     // Building Docker Image
-                    echo 'Building Docker Image........'
+                    echo 'Building Docker Image....'
                     docker.build("mlops")
                 }
             }
-        } 
-         stage('Scanning Docker Image') {
+        }
+
+        stage('Scanning Docker Image') {
             steps {
                 script {
                     // Scanning Docker Image
-                    echo 'Scanning Docker Image........'
-                    sh "trivy image mlops:latest -- format table -o trivy-image-scan-report.html"
+                    echo 'Scanning Docker Image....'
+                    sh "trivy image mlops :latest --format table -o trivy-image-scan-report.html"
                 }
             }
         }
+
         
     }
 }
