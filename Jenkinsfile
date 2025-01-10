@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment{
         VENV_DIR ='venv'
-        DOCKERHUB_REPOSITORY = 'https://github.com/Shailigajera/Airline-Customer-Satisfaction-Pridiction-.git'
     }
     
     stages {
