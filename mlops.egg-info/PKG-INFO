@@ -8,9 +8,10 @@ Requires-Dist: pandas
 Requires-Dist: numpy
 Requires-Dist: setuptools
 Requires-Dist: mlops
-Requires-Dist: mysql-connector-python
 Requires-Dist: scikit-learn
 Requires-Dist: lightgbm
-Requires-Dist: xgboost
-Requires-Dist: tensorboard
-Requires-Dist: torch
+Requires-Dist: mlflow
+Requires-Dist: flask
+Requires-Dist: pylint
+Requires-Dist: flake8
+Requires-Dist: black
