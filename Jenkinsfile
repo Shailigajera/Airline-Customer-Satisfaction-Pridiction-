@@ -72,7 +72,7 @@ pipeline {
                 script {
                     // Building Docker Image
                     echo 'Building Docker Image...'
-                    def dockerImage = docker.build("${DOCKERHUB_REPOSITORY}.latest")
+                    def dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
                 }
             }
         }
@@ -82,18 +82,21 @@ pipeline {
                 script {
                     // Scanning Docker Image
                     echo 'Scanning Docker Image...'
-                    sh "trivy image ${DOCKERHUB_REPOSITORY}.latest --format table -o trivy-image-scan-report.html"
+                    sh "trivy image ${DOCKERHUB_REPOSITORY}:latest --format table -o trivy-image-scan-report.html"
                 }
             }
         }
-         stage('Pushing Docker Image') {
+
+        stage('Pushing Docker Image') {
             steps {
                 script {
                     // Pushing Docker Image
                     echo 'Pushing Docker Image...'
-                    docker.withRegistry("${DOCKERHUB_REPOSITORY}" ,"${DOCKERHUB_CREDENTIAL_ID}"){
+                    docker.withRegistry("${DOCKERHUB_REGISTRY}", "${DOCKERHUB_CREDENTIAL_ID}") {
+                        def dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
                         dockerImage.push('latest')
                     }
+                }
             }
         }
     }
