@@ -53,26 +53,28 @@ pipeline {
                 }
             }
         }
+
         stage('Trivy Scanning') {
             steps {
                 script {
                     // Trivy Scanning
                     echo 'Trivy Scanning...'
                     sh "trivy fs ./ --format table -o trivy-fs-report.html"
-
                 }
             }
         }
-         stage('Building Docker Image') {
+
+        stage('Building Docker Image') {
             steps {
                 script {
                     // Building Docker Image
                     echo 'Building Docker Image...'
-                    docker.built("mlops")
+                    def dockerImage = docker.build("mlops:latest")
                 }
             }
         }
-                 stage('Scanning Docker Image') {
+
+        stage('Scanning Docker Image') {
             steps {
                 script {
                     // Scanning Docker Image
