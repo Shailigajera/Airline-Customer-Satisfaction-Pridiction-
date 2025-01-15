@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         VENV_DIR = 'venv'
-        DOCKERHUB_CREDENTIAL_ID = 'Mlops-dockerhub'
+        DOCKERHUB_CREDENTIAL_ID = 'mlops-dockerhub'
         DOCKERHUB_REGISTRY = 'https://registry.hub.docker.com'
-        DOCKERHUB_REPOSITORY = 'shailigajera/airline-customer-satisfaction-prediction'
+        DOCKERHUB_REPOSITORY = 'prediction-airline-customer-satisfaction'
     }
 
     stages {
@@ -99,15 +99,7 @@ pipeline {
                 }
             }
         }
-        stage('AWS Deployment') {
-            steps {
-                script {
-                    // AWS Deployment
-                    echo 'AWS Deployment...'
-                    sh "aws ecs update-service --cluster Shaili_ecs --service Shaili_service --force-new-deployment"
-                  }
-                }
-            }
+        
         }
     }
 
