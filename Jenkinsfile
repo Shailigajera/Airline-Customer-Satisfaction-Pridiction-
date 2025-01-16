@@ -5,7 +5,7 @@ pipeline {
         DOCKERHUB_CREDENTIAL_ID = 'MLOPS-dockerhub'
         DOCKERHUB_REGISTRY = 'https://registry.hub.docker.com'
         DOCKERHUB_REPOSITORY = 'shailigajera/customer-satisfaction-prediction-app'
-        AWS_REGION = 'eu-north-1'
+        AWS_REGION = 'us-east-1'
     }
     
     stages {
