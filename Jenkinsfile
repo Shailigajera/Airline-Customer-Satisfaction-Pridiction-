@@ -5,7 +5,7 @@ pipeline {
         DOCKERHUB_CREDENTIAL_ID = 'MLOPS-dockerhub'
         DOCKERHUB_REGISTRY = 'https://registry.hub.docker.com'
         DOCKERHUB_REPOSITORY = 'shailigajera/customer-satisfaction-prediction-app'
-
+        AWS_REGION = 'eu-north-1'
     }
     
     stages {
@@ -91,18 +91,23 @@ pipeline {
             }
          }
 
-         stage('AWS Deployment') {
+        stage('AWS Deployment') {
             steps {
-                script {
-                    // AWS Deployment
-                    echo 'AWS Deployment...'
-                    sh """ aws ecs update-service --cluster 
-SHAILI-ecs --service gajera-service  --force-new-deployment"""
-
+                // Inject AWS credentials securely
+                withCredentials([usernamePassword(credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    script {
+                        // AWS Deployment
+                        echo 'AWS Deployment....'
+                        sh '''
+                            export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                            export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                            aws ecs update-service --cluster SHAILI-ecs --service gajera-service --force-new-deployment --region ${AWS_REGION}
+                        '''
                     }
                 }
             }
          }
     }
+}
 
 
