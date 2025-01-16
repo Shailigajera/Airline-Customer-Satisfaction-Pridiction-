@@ -98,11 +98,12 @@ pipeline {
                     script {
                         // AWS Deployment
                         echo 'AWS Deployment....'
-                        sh '''
-                            export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                            export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-                            aws ecs update-service --cluster SHAILI-ecs --service gajera-service --force-new-deployment --region ${AWS_REGION}
-                        '''
+                        sh """
+    export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    aws ecs update-service --cluster SHAILI-ecs --service gajera-service --force-new-deployment --region ${AWS_REGION}
+"""
+
                     }
                 }
             }
