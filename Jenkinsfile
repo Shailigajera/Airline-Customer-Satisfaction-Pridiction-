@@ -98,6 +98,7 @@ pipeline {
                     echo 'AWS Deployment...'
                     sh """ aws ecs update-service --cluster 
 SHAILI-ecs --service gajera-service  --force-new-deployment"""
+
                     }
                 }
             }
