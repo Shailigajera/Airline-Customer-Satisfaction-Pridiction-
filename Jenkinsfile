@@ -2,10 +2,7 @@ pipeline {
     agent any
     environment {
         VENV_DIR ='venv'
-        DOCKERHUB_CREDENTIAL_ID = 'MLOPS-dockerhub'
-        DOCKERHUB_REGISTRY = 'https://registry.hub.docker.com'
-        DOCKERHUB_REPOSITORY = 'shailigajera/customer-satisfaction-prediction-app'
-        AWS_REGION = 'eu-north-1.'
+
     }
     
     stages {
@@ -59,56 +56,9 @@ pipeline {
                 }
             }
         }
-        stage('Building Docker Image') {
-            steps {
-                script {
-                    // Building Docker Image
-                    echo 'Building Docker Image...'
-                    dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
-                }
-            }
-        }
-
-        stage('Scanning Docker Image') {
-            steps {
-                script {
-                    // Scanning Docker Image
-                    echo 'Scanning Docker Image...'
-                    sh "trivy image ${DOCKERHUB_REPOSITORY}:latest --format table -o trivy-image-scan-report.html"
-                }
-            }
-        }
-         stage('Pushing Docker Image') {
-            steps {
-                script {
-                    // Pushing Docker Image
-                    echo 'Pushing Docker Image...'
-                    docker.withRegistry("${DOCKERHUB_REGISTRY}", "${DOCKERHUB_CREDENTIAL_ID}") {
-                        def dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
-                        dockerImage.push('latest')
-                    }
-                }
-            }
-         }
-
-        stage('AWS Deployment') {
-            steps {
-                // Inject AWS credentials securely
-                withCredentials([usernamePassword(credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    script {
-                        // AWS Deployment
-                        echo 'AWS Deployment....'
-                        sh """
-    export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-    export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    aws ecs update-service --cluster SHAILI-ecs --service gajera-service --force-new-deployment --region ${AWS_REGION}
-"""
-
-                    }
-                
-                }
-            }
-         }
+        
+        
+        
     }
 }
 
