@@ -57,7 +57,7 @@ stages {
                 script {
                     // Building Docker Image
                     echo 'Building Docker Image...'
-                    docker.build("Project")
+                    docker.build("project")
                 }
             }
         }
@@ -67,7 +67,7 @@ stages {
                 script {
                     // Scanning Docker Image
                     echo 'Scanning Docker Image...'
-                    sh "trivy image Project:latest --format table -o trivy-image-scan-report.html"
+                    sh "trivy image project:latest --format table -o trivy-image-scan-report.html"
                 }
             }
         }
