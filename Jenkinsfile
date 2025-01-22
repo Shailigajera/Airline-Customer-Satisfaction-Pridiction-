@@ -43,7 +43,7 @@ stages {
                 }
             }
         }
-        tage('Trivy Scanning') {
+        stage('Trivy Scanning') {
             steps {
                 script {
                     // Trivy Scanning
