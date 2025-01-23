@@ -2,6 +2,10 @@ pipeline {
     agent any
     environment {
         VENV_DIR ='venv'
+        DOCKERHUB_CREDENTIAL_ID = 'project1-dockerhub'
+        DOCKERHUB_REGISTRY = 'https://registry.hub.docker.com'
+        DOCKERHUB_REPOSITORY = 'shailigajera/mlops_prediction_app'
+         
     }
 stages {
         stage('Cloning From Github Repo') {
@@ -57,7 +61,7 @@ stages {
                 script {
                     // Building Docker Image
                     echo 'Building Docker Image...'
-                    docker.build("project")
+                    dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
                 }
             }
         }
@@ -67,10 +71,21 @@ stages {
                 script {
                     // Scanning Docker Image
                     echo 'Scanning Docker Image...'
-                    sh "trivy image project:latest --format table -o trivy-image-scan-report.html"
+                    sh "trivy image ${DOCKERHUB_REPOSITORY}:latest --format table -o trivy-image-scan-report.html"
                 }
             }
         }
-
+        stage('Pushing Docker Image') {
+            steps {
+                script {
+                    // Pushing Docker Image
+                    echo 'Pushing Docker Image...'
+                    docker.withRegistry("${DOCKERHUB_REGISTRY}", "${DOCKERHUB_CREDENTIAL_ID}") {
+                        def dockerImage = docker.build("${DOCKERHUB_REPOSITORY}:latest")
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+         }
     }
 }
