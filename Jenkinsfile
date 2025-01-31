@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment{
         VENV_DIR ='venv'
-        DOCKERHUB_CREDENTIAL_ID = 'project-dockerhub'
+        DOCKERHUB_CREDENTIAL_ID = 'mlops-dockerhub'
         DOCKERHUB_REGISTRY = 'https://registry.hub.docker.com'
         DOCKERHUB_REPOSITORY = 'shailigajera/project1-mlops-app'
     }
